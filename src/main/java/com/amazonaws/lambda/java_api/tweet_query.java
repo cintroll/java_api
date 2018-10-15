@@ -32,24 +32,42 @@ public class tweet_query {
 
     
     public String five_more_followed_users() {
+    	Table statistics_table = dynamoDB.getTable("statistics");
+    	
     	DynamoDBMapper mapper = new DynamoDBMapper(client);
     	
-    	Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":val1", new AttributeValue().withN("500"));
-        eav.put(":val2", new AttributeValue().withN("0"));
+    	QuerySpec spec = new QuerySpec()
+    		    .withKeyConditionExpression("id = :v_id")
+    		    .withValueMap(new ValueMap()
+    		        .withNumber(":v_id", 1));
     	
-    	DynamoDBQueryExpression<tweet_object> query = new DynamoDBQueryExpression<tweet_object>().
-    				withKeyConditionExpression("id = :val1 and user_followers > :val2").withExpressionAttributeValues(eav)
-    				.withScanIndexForward(false);
-    	query.setLimit(5);
-    	
-    	List<tweet_object> resp = mapper.query(tweet_object.class, query);
-    	
+    	ItemCollection<QueryOutcome> items = statistics_table.query(spec);
+
+    	Iterator<Item> iterator = items.iterator();
+    	Item item = null;
     	String out = new String();
-    	for (tweet_object tweet_object : resp) {
-			out += tweet_object.toString();
-		}
+    	while (iterator.hasNext()) {
+    	    item = iterator.next();
+    	    out += item.toJSONPretty();
+    	}
     	
+//    	Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+//        eav.put(":val1", new AttributeValue().withN("1047886537344606210"));
+//        eav.put(":val2", new AttributeValue().withS("apigateway"));
+//    	
+//    	DynamoDBQueryExpression<tweet_object> query = new DynamoDBQueryExpression<tweet_object>().
+//    				withKeyConditionExpression("id = :val1 and hashtag = :val2").withExpressionAttributeValues(eav)
+//    				.withScanIndexForward(false);
+//    	query.setLimit(5);
+//    	
+//    	List<tweet_object> resp = mapper.query(tweet_object.class, query);
+//    	
+//    	String out = new String();
+//    	for (tweet_object tweet : resp) {
+//    		tweet.setUser(mapper.load(user_object.class, tweet.getUser_id()));
+//			out += tweet.toString();
+//		}
+//    	
     	return out;
     }
 

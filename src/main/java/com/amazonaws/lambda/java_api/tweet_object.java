@@ -1,58 +1,46 @@
 package com.amazonaws.lambda.java_api;
 
+import com.amazonaws.lambda.java_api.user_object;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 
 @DynamoDBTable(tableName="tweets")
 public class tweet_object {
-	private Integer id;
-    private String category;
+	private Long id;
+    private String hashtag;
     private String text;
-    private Integer timestamp;
-    private Integer user_id;
-    private String user_name;
-    private Integer user_followers;
-    private String lang;
+    private String datetime;
+    private Long user_id;
+    private user_object user;
     
     @DynamoDBHashKey(attributeName="id")
-	public Integer getId() {return id;	}
-	public void setId(Integer id) {	this.id = id; }
+	public Long getId() {return id;	}
+	public void setId(Long id) {	this.id = id; }
 	
-	@DynamoDBAttribute(attributeName="category")
-	public String getCategory() { return category; }
-	public void setCategory(String category) { this.category = category; }
+	@DynamoDBAttribute(attributeName="hashtag")
+	public String getCategory() { return hashtag; }
+	public void setCategory(String category) { this.hashtag = category; }
 	
 	@DynamoDBAttribute(attributeName="text")
 	public String getText() { return text; }
 	public void setText(String text) { this.text = text; }
 	
 	@DynamoDBAttribute(attributeName="date_time")
-	public Integer getTimestamp() { return timestamp; }
-	public void setTimestamp(Integer timestamp) { this.timestamp = timestamp; }
+	public String getTimestamp() { return datetime; }
+	public void setTimestamp(String timestamp) { this.datetime = timestamp; }
 	
 	@DynamoDBAttribute(attributeName="user_id")
-	public Integer getUser_id() { return user_id; }
-	public void setUser_id(Integer user_id) { this.user_id = user_id; }
+	public Long getUser_id() { return user_id; }
+	public void setUser_id(Long user_id) { this.user_id = user_id; }
 	
-	@DynamoDBAttribute(attributeName="user_name")
-	public String getUser_name() { return user_name; }
-	public void setUser_name(String user_name) { this.user_name = user_name; }
-	
-	@DynamoDBRangeKey(attributeName="user_followers")
-	public Integer getUser_followers() { return user_followers; }
-	public void setUser_followers(Integer user_followers) { this.user_followers = user_followers; }
-	
-	@DynamoDBAttribute(attributeName="user_lang")
-	public String getLang() { return lang; }
-	public void setLang(String lang) { this.lang = lang; }
+	public void setUser(user_object user) { this.user = user; } 
 	
 	@Override
 	public String toString() {
-		return "tweet_object [id=" + id + ", category=" + category + ", text=" + text + ", timestamp=" + timestamp
-				+ ", user_id=" + user_id + ", user_name=" + user_name + ", user_followers=" + user_followers + ", lang="
-				+ lang + "]";
+		return "tweet_object [id=" + id + ", hashtag=" + hashtag + ", text=" + text + ", datetime=" + datetime
+				+ ", user=  " + user + "]";
 	}    
 }
