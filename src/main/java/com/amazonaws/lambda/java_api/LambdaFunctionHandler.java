@@ -5,7 +5,6 @@ import com.amazonaws.lambda.java_api.tweet_query;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
@@ -22,7 +21,7 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
 //            output.write(Character.toUpperCase(letter));
 //        }
     	tweet_query query = new tweet_query();
-    	output.write(query.five_more_followed_users().getBytes());  	
+    	output.write(query.query_tweets().getBytes());  	
     }
 
 }

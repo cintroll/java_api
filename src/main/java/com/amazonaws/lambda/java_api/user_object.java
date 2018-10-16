@@ -6,22 +6,22 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName="users")
 public class user_object {
-	private Long id;
+	private long id;
 	private String name;
-	private Long followers;
+	private long followers;
 	private String lang;
 	
 	@DynamoDBHashKey(attributeName="id")
-	public Long getId() { return id; }
-	public void setId(Long id) { this.id = id; }
+	public long getId() { return id; }
+	public void setId(long id) { this.id = id; }
 	
 	@DynamoDBAttribute(attributeName="name")
 	public String getName() { return name;	}
 	public void setName(String name) {	this.name = name; }
 	
 	@DynamoDBAttribute(attributeName="followers")
-	public Long getFollowers() { return followers; }
-	public void setFollowers(Long followers) { this.followers = followers; }
+	public long getFollowers() { return followers; }
+	public void setFollowers(long followers) { this.followers = followers; }
 	
 	@DynamoDBAttribute(attributeName="lang")
 	public String getLang() { return lang; }
@@ -31,4 +31,8 @@ public class user_object {
 	public String toString() {
 		return "user_object [id=" + id + ", name=" + name + ", followers=" + followers + ", lang=" + lang + "]";
 	}	
+	
+	public String toJSON() {
+		return "{\"id\":" + id + ",\"name\":\"" + name + "\",\"followers\":" + followers + ",\"lang\":\"" + lang + "\"}";
+	}
 }
