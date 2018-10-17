@@ -75,7 +75,7 @@ public class tweet_query {
     public String query_tweets() {    	
     	DynamoDBMapper mapper = new DynamoDBMapper(client);
     	
-    	List<tweet_object> tweets = mapper.parallelScan(tweet_object.class, new DynamoDBScanExpression(), 4);
+    	List<tweet_object> tweets = mapper.scan(tweet_object.class, new DynamoDBScanExpression());
     	
     	JSONArray JSONOut = new JSONArray();    	
     	for (tweet_object tweet : tweets) {
